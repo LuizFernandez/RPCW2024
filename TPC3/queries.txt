@@ -1,0 +1,52 @@
++---------------------------------------------------------------------------------+
+| Query 1 (Todos os triplos)                                                      |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+| PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>                       |
+| PREFIX : <http://rpcw.di.uminho.pt/2024/mapa_virtual/>                          |
+|                                                                                 |
+| SELECT ?distrito (COUNT (DISTINCT ?cidade) as ?ncidades) WHERE{                 |
+|	 ?c rdf:type :Cidade.                                                         |
+|    ?c :distrito ?distrito.                                                      |
+|    ?c :nome ?cidade                                                             |
+| }GROUP BY ?distrito ORDER BY ?distrito                                          |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+| Query 2 (Cidades no alcance do Porto)                                           |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+| PREFIX : <http://rpcw.di.uminho.pt/2024/mapa_virtual/>                          |
+|                                                                                 |
+| SELECT DISTINCT ?nome WHERE {                                                   |
+|	 ?c :distrito "Porto".                                                        |
+|    ?l :temOrigem ?c.                                                            |
+|    ?l :temDestino ?city.                                                        |
+|    ?city :nome ?nome.                                                           |
+| }ORDER BY ?nome                                                                 |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+| Query 3 (Cidades de um determinado distrito)                                    |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+| PREFIX : <http://rpcw.di.uminho.pt/2024/mapa_virtual/>                          |
+|                                                                                 |
+| SELECT ?nome WHERE  {                                                           |
+|	 ?c :distrito "Braga".                                                        |
+|    ?c :nome ?nome                                                               |
+| }ORDER BY ?nome                                                                 |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+| Query 4 (Quais as cidades com população acima de um determinado valor?)         |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+| PREFIX : <http://rpcw.di.uminho.pt/2024/mapa_virtual/>                          |
+| PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>                       |
+|                                                                                 |
+| SELECT ?cidade ?populacao WHERE  {                                              |
+|	 ?c rdf:type :Cidade;                                                         |                        
+|       :nome ?cidade;                                                            |
+|       :população ?populacao;                                                     |
+|    FILTER (populacao > 457125)                                                  |
+| }ORDER BY ?cidade                                                               |
+|                                                                                 |
++---------------------------------------------------------------------------------+
