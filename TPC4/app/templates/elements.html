@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename="favicon.png")}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename="style/w3.css")}}" />
+    <title>Tabela Periódica: Elementos</title>
+</head>
+<body>
+    <div class="w3-card-4">
+        <header class="w3-container w3-purple">
+            <h1>Tabela Elementos</h1>
+        </header>
+
+        <div class="w3-container">
+            <table class="w3-table-all">
+                <tr>
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Símbolos</th>
+                    <th>Grupo</th>
+                </tr>
+                {% for entry in data.data %}
+                <tr>
+                    <td><a href="/elementos/{{entry.numb.value}}">{{entry.numb.value}}</a></td>
+                    <td>{{entry.name.value}}</td>
+                    <td>{{entry.simb.value}}</td>
+                    <td><a href="/grupos/{{entry.group.value}}">{{entry.group.value}}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <footer class="w3-container w3-purple">
+            <h5>Gerada por RPCW2024 em {{data.tempo}} </h5>
+        </footer>
+    </div>
+</body>
+</html>
