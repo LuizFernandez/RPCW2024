@@ -1,5 +1,11 @@
 import requests
 import json
+import sys
+
+if len(sys.argv) < 2:
+    fileName = "Cinema.json"
+else:
+    fileName = sys.argv[1]
 
 # Function to fecth data
 def fecthFromDBpedia(params, db):
@@ -32,9 +38,11 @@ def fecthFromDBpedia(params, db):
     
     return db
 
-f = open("movies.json", "r")
-db = json.loads(f.read())
-f.close()
+with open('movies.json', 'r', encoding='utf-8') as file:
+    # Read the entire contents of the file
+    contents = file.read()
+db = json.loads(contents)
+
 
 new_db = {}
 new_db["movies"] = db
@@ -94,7 +102,9 @@ paramsActress = {
 
 new_db = fecthFromDBpedia(paramsActress, new_db)
 if new_db:
-    print(new_db)
+    with open(fileName, 'w') as file:
+        file.write(json.dumps(new_db))
+    print("Number of entries: ", len(new_db["atores"]))
 
 
 
