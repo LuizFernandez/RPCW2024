@@ -2,7 +2,7 @@
 
 **Objetivo**: Construir um dataset sobre o cinema
 
-No ficheiro *dbpedia_movies.py*, lança uma query SPARQL ao *dbpedia* e pede informações referentes aos filmes. Nessa queries são pedidos:
+No ficheiro _dbpedia_movies.py_, lança uma query SPARQL ao _dbpedia_ e pede informações referentes aos filmes. Nessa queries são pedidos:
 
 - **URI** - uri do filme;
 - **Designacao** - Nome do filme;
@@ -14,7 +14,7 @@ No ficheiro *dbpedia_movies.py*, lança uma query SPARQL ao *dbpedia* e pede inf
 
 Destes parâmetros todos, atores, escritores, diretores e musicos, são campos opcionais para alguns filmes, ou seja, em alguns casos não apresentam um valor associado a esses campos.
 
-No ficheiro *dbpedia_actors.py*, envia-se uma query SPARQL para pedir informações referentes a todos os atores. Informações:
+No ficheiro _dbpedia_actors.py_, envia-se uma query SPARQL para pedir informações referentes a todos os atores. Informações:
 
 - **URI** - uri do ator;
 - **nome** - Nome do ator;
@@ -22,4 +22,4 @@ No ficheiro *dbpedia_actors.py*, envia-se uma query SPARQL para pedir informaç�
 
 Tal como no caso anterior, pode haver atores que não apresentem qualquer tipo de filmes.
 
-No final tudo é junto no *dataset* **Cinema.json*
+No final tudo é junto no _dataset_ \*_Cinema.json_

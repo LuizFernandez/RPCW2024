@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <header>
+    <meta charset="utf-8" />
+    <title>Cinemas</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/w3.css') }}"
+    />
+    <style>
+      .w3-button {
+        font-weight: bold;
+      }
+    </style>
+  </header>
+  <body>
+    <div class="w3-card-4">
+      <header class="w3-container w3-purple">
+        <h1>Cinema 2024</h1>
+      </header>
+
+      <div class="w3-container">
+        <div class="w3-bar-block w3-center">
+          <a href="/movies" class="w3-button w3-border-bottom">Movies</a>
+          <a href="/actors" class="w3-button w3-border-bottom">Actors</a>
+          <a href="/directors" class="w3-button w3-border-bottom">Directors</a>
+          <a href="/writers" class="w3-button w3-border-bottom">Writers</a>
+          <a href="/musicians" class="w3-button w3-border-bottom">Musicians</a>
+          <a href="/screenwriters" class="w3-button w3-border-bottom"
+            >Screenwriters</a
+          >
+        </div>
+      </div>
+
+      <footer class="w3-container w3-purple">
+        <h5>Gerado por RPCW2024 em {{ data.data }}</h5>
+      </footer>
+    </div>
+  </body>
+</html>
