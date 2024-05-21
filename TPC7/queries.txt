@@ -1,0 +1,80 @@
+Query 1: Quantos alunos estão registados?
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/alunos/>
+SELECT (Count (?s) as ?numb) WHERE {
+    ?s rdf:type :Aluno;
+}
+
+Query 2: Quantos alunos frequentam o curso "LCC"? 
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/alunos/>
+
+SELECT (COUNT(?s) as ?alunosLCC) WHERE {
+    ?s rdf:type :Aluno;
+       :inscritoEm :LCC;
+}
+
+Query 3: Que alunos tiveram nota positiva no exame de época normal? (lista ordenada alfabeticamente
+         por nome com: idAluno, nome, curso, nota do exame);
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/alunos/>
+select ?id ?nome ?curso ?n where { 
+	?s rdf:type :Aluno;
+       :realizouExame ?e;
+       :name ?nome;
+       :id_aluno ?id;
+       :inscritoEm ?c.
+       
+    ?c :curso ?curso.
+       
+    ?e rdf:type :Normal;
+       :exame_nota ?n.
+    
+    FILTER (?n >= 10)
+} ORDER BY ?nome 
+
+Query 4: Qual a distribuição dos alunos pelas notas do projeto? (lista com: nota e número de alunos que
+         obtiveram essa nota)
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/alunos/>
+select (COUNT (?s) as ?nAlunos) ?nota where { 
+	?s rdf:type :Aluno;
+       :nota_projeto ?nota.
+       
+} GROUP BY ?nota
+
+Query 5: Quais os alunos mais trabalhadores durante o semestre? (lista ordenada por ordem
+         decrescente do total: idAluno, nome, curso, total = somatório dos resultados dos TPC)
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/alunos/>
+select ?id ?nome ?curso (SUM(?nota) as ?n) where { 
+	?s rdf:type :Aluno;
+       :name ?nome;
+       :id_aluno ?id;
+       :realiazouTPC ?tpc;
+       :inscritoEm ?c.
+       
+    ?c :curso ?curso.
+       
+ 	?tpc :tpc_nota ?nota.
+} 
+GROUP BY ?id ?nome ?curso
+ORDER BY DESC(?n) 
+
+Query 6: Qual a distribuição dos alunos pelos vários cursos? (lista de cursos, ordenada alfabeticamente
+         por curso, com: curso, número de alunos nesse curso)
+
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX : <http://rpcw.di.uminho.pt/2024/alunos/>
+select ?c (COUNT(?insc) as ?nAlunos) where { 
+	 ?s rdf:type :Curso;
+        :curso ?c;
+        :temInscritos ?insc.
+} 
+GROUP BY ?c
+ORDER BY ?c
